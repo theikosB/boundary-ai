@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boundary — Keep your boundaries clear</title>
+    <meta name="description" content="An open-weight AI assistant for comparing customer requests against your agreements and policies.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="/"><span class="brand-icon">B</span> boundary<span class="dot">.</span></a>
+        <span class="model-pill"><span class="status-dot"></span> Open-weight AI</span>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <p class="eyebrow">YOUR TERMS. YOUR CALL.</p>
+            <h1>Be helpful.<br><span>Keep your boundaries.</span></h1>
+            <p class="subtitle">Understand customer requests against your own agreements and policies. Get a clear assessment and a reply you can review before sending.</p>
+        </section>
+
+        <section class="workspace">
+            <div class="tabs" role="tablist" aria-label="Analysis mode">
+                <button class="tab active" data-mode="scope" role="tab" aria-selected="true">↗ Project scope</button>
+                <button class="tab" data-mode="policy" role="tab" aria-selected="false">◇ Customer policy</button>
+            </div>
+
+            <form id="analysis-form">
+                <input type="hidden" id="mode" value="scope">
+
+                <div class="form-grid">
+                    <div class="field">
+                        <div class="field-title">
+                            <label id="terms-label" for="terms">Original agreement</label>
+                            <button type="button" id="load-example" class="text-button">Load example</button>
+                        </div>
+                        <p id="terms-help" class="help">Paste the agreed deliverables, revision limits, timeline, or exclusions.</p>
+                        <textarea id="terms" maxlength="12000" required placeholder="Describe what was agreed..."></textarea>
+                        <div class="field-foot"><span>Your supplied terms are the reference.</span><span id="terms-count">0 / 12000</span></div>
+                    </div>
+
+                    <div class="field">
+                        <label for="customer-message">New customer request</label>
+                        <p class="help">Paste the message or describe what the customer is asking for.</p>
+                        <textarea id="customer-message" maxlength="12000" required placeholder="What did the customer ask for?"></textarea>
+                        <div class="field-foot"><span>Remove sensitive details first.</span><span id="message-count">0 / 12000</span></div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <div class="tone-control">
+                        <label for="tone">Reply tone</label>
+                        <select id="tone">
+                            <option>Friendly and firm</option>
+                            <option>Warm and apologetic</option>
+                            <option>Brief and direct</option>
+                        </select>
+                    </div>
+                    <button class="primary-button" id="analyze-button" type="submit">
+                        <span>Check the boundary</span><span>↗</span>
+                    </button>
+                </div>
+            </form>
+
+            <div id="error-box" class="error-box" role="alert" hidden></div>
+
+            <section id="results" class="results" aria-live="polite" hidden>
+                <div class="results-header">
+                    <div>
+                        <p class="eyebrow">BOUNDARY CHECK</p>
+                        <h2>Your assessment</h2>
+                    </div>
+                    <span id="classification" class="classification"></span>
+                </div>
+
+                <p id="summary" class="summary"></p>
+
+                <div class="result-grid">
+                    <article class="result-card">
+                        <h3>⌕ Evidence from your terms</h3>
+                        <ul id="evidence-list"></ul>
+                    </article>
+                    <article class="result-card">
+                        <h3>! Uncertainties to check</h3>
+                        <ul id="uncertainty-list"></ul>
+                    </article>
+                </div>
+
+                <div class="next-step">
+                    <span class="next-icon">→</span>
+                    <div><strong>Suggested next step</strong><p id="next-step"></p></div>
+                </div>
+
+                <article class="reply-card">
+                    <div class="reply-header">
+                        <div><p class="eyebrow">READY TO REVIEW</p><h3>Suggested reply</h3></div>
+                        <button type="button" id="copy-reply" class="copy-button">Copy reply ↗</button>
+                    </div>
+                    <p id="draft-reply" class="draft-reply"></p>
+                    <p class="review-note">Review and edit before sending. Boundary can make mistakes.</p>
+                </article>
+            </section>
+        </section>
+
+        <section class="trust-grid">
+            <div><span class="trust-icon">⌂</span><strong>Open-weight AI</strong><p>Designed around a model you can replace or customize.</p></div>
+            <div><span class="trust-icon">◎</span><strong>Grounded in your terms</strong><p>Evidence and uncertainty are shown separately.</p></div>
+            <div><span class="trust-icon">✳</span><strong>Your decision</strong><p>You review every assessment and suggested reply.</p></div>
+        </section>
+
+        <p class="disclaimer">Boundary provides drafting support, not legal advice. It does not determine legal rights or guarantee that a policy complies with applicable law.</p>
+    </main>
+
+    <footer><span>boundary<span class="dot">.</span></span><span>Built with open-weight AI · Prototype</span></footer>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
